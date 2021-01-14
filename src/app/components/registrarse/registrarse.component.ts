@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../servicios/usuarios/usuario.service';
 
 import {DateValidators} from '../../validadores/date.validators'
+import { UsuarioModel } from 'src/app/clases/usuario.model';
 // import { DateValidators } from 'app/validadores/date.validators';
 
 @Component({
@@ -71,5 +72,10 @@ export class RegistrarseComponent implements OnInit {
     this.maxDate = `${fechaMax.getFullYear()}-${fechaMax.getMonth() + 1}-${fechaMax.getDate()}`;
   }
 
+  valoresForm(): UsuarioModel {
+    let usuario : UsuarioModel= new UsuarioModel();
+    //usuario.nombre = 
+    return usuario;
+  }
 
 }
