@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './components/compartido/menu/menu.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { MenuComponent } from './components/compartido/menu/menu.component';
       apiKey: 'AIzaSyD8drXGd-uq-LK538tdRymcCHbYjojfylw',
       libraries: ["places", "geometry"]
     }),
-    AgmDirectionModule
+    AgmDirectionModule,
+    GooglePlaceModule
 
   ],
   providers: [],

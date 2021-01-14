@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { Ruta } from '../../clases/ruta'
 interface Coordenada {
   lat: number;
@@ -34,10 +36,22 @@ export class MapaComponent implements OnInit {
   mostrarError :boolean  = false;
 
   constructor() { }
+  @ViewChild("placesRef") placesRef : GooglePlaceDirective;
+
+  public options={types: [], componentRestrictions: { country: 'SV' }};
 
   ngOnInit(): void {
   }
 
+  public handleAddressChange(address: Address) {
+    // Do some stuff
+    console.log(address);
+    console.log('Latitud : ' + address.geometry.location.lat());
+    console.log('Longitud : ' + address.geometry.location.lng());
+
+    this.lat = address.geometry.location.lat();
+    this.lng = address.geometry.location.lng();
+  }
 
   //------------------ Métodos ----------------------------------
   clickMapa($event){

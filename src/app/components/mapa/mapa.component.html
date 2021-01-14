@@ -1,48 +1,94 @@
-<div class="row">
-    <div class="col-md-3 animated fadeIn fast info" *ngIf="hayDatos">
-        <strong>Origen: </strong>
-        <p>{{ruta.direccionFin.texto}}</p>
-        <strong>Destino: </strong>
-        <p>{{ruta.direccionInicio.texto}}</p>
-        <strong>Tiempo estimado de viaje: </strong>
-        <p>{{ruta.duracion.texto}}</p>
-        <strong>Precio: </strong>
-        <p>$</p>
-        <button mat-raised-button color="warn">Solicitar</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <img src="/assets/img/logoFondoBlanco.svg " width="26px" height="26px" />
+                </a>
+
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> salir</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
+        </form>
     </div>
-    <div class="col-md-3 info" *ngIf="mostrarError">
-        <div class="d-flex justify-content-center">
-            <div>
-                <span class="material-icons mp-2">
-              error_outline
-              </span>
+</nav>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-3 animated fadeIn fast info" *ngIf="hayDatos">
+            <strong>Origen: </strong>
+            <p>{{ruta.direccionFin.texto}}</p>
+            <strong>Destino: </strong>
+            <p>{{ruta.direccionInicio.texto}}</p>
+            <strong>Tiempo estimado de viaje: </strong>
+            <p>{{ruta.duracion.texto}}</p>
+            <strong>Precio: </strong>
+            <p>$</p>
+            <button mat-raised-button color="warn">Solicitar</button>
+        </div>
+        <div class="col-md-3 info" *ngIf="mostrarError">
+            <div class="d-flex justify-content-center">
+                <div>
+                    <span class="material-icons mp-2">
+            error_outline
+            </span>
+                </div>
+
+                <p>{{mensajeError}}</p>
             </div>
 
-            <p>{{mensajeError}}</p>
+
+        </div>
+        <div class="col mapa">
+            <agm-map (mapClick)="clickMapa($event)" [latitude]="lat" [longitude]="lng" [zoom]="15">
+
+                <agm-marker *ngIf="existeOrigen()" name="origen" (dragEnd)="cambiandoPosicionOrigen($event)" [markerDraggable]="true" [latitude]="origen.lat" [longitude]="origen.lng">
+                </agm-marker>
+                <agm-marker *ngIf="existeDestino()" name="origen" (dragEnd)="cambiandoPosicionDestino($event)" [markerDraggable]="true" [latitude]="destino.lat" [longitude]="destino.lng">
+                    <agm-info-window>
+                        <strong>prueba</strong>
+                        <p>prueba2 </p>
+
+                    </agm-info-window>
+                </agm-marker>
+
+                <agm-direction (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode" [origin]="origen" [destination]="destino">
+
+                </agm-direction>
+
+
+            </agm-map>
+
         </div>
 
-
     </div>
-    <div class="col mapa">
-        <agm-map (mapClick)="clickMapa($event)" [latitude]="lat" [longitude]="lng" [zoom]="15">
-
-            <agm-marker *ngIf="existeOrigen()" name="origen" (dragEnd)="cambiandoPosicionOrigen($event)" [markerDraggable]="true" [latitude]="origen.lat" [longitude]="origen.lng">
-            </agm-marker>
-            <agm-marker *ngIf="existeDestino()" name="origen" (dragEnd)="cambiandoPosicionDestino($event)" [markerDraggable]="true" [latitude]="destino.lat" [longitude]="destino.lng">
-                <agm-info-window>
-                    <strong>prueba</strong>
-                    <p>prueba2 </p>
-
-                </agm-info-window>
-            </agm-marker>
-
-            <agm-direction (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode" [origin]="origen" [destination]="destino">
-
-            </agm-direction>
-
-
-        </agm-map>
-
-    </div>
-
 </div>

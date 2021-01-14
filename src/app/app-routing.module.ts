@@ -6,10 +6,7 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { MenuComponent } from './components/compartido/menu/menu.component';
 
 const routes: Routes = [
-  { path: '', component: MenuComponent ,
-  children : [
-    {path: 'inicio', component: MapaComponent},
-  ]},
+  {path: 'inicio', component: MapaComponent},
   { path: 'registrarse', component: RegistrarseComponent },
   { path: 'login', component: IniciarSesionComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'inicio' }
