@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,16 @@ import { Injectable } from '@angular/core';
 })
 export class ViajeService {
 
-  constructor() { }
+  urlApi = "http://safetaxi.api/api";
+
+  constructor(private http : HttpClient) { }
+
+  getTarifas(data : any){
+    return this.http.post(`${this.urlApi}/tarifasviaje`, data);
+  }
+
+  solicitarViaje(data : any){
+    return this.http.post(`${this.urlApi}/viajesolicitar`, data);
+  }
+
 }

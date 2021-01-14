@@ -1,14 +1,16 @@
 <div class="row">
     <div class="col-md-3 animated fadeIn fast info" *ngIf="hayDatos">
         <strong>Origen: </strong>
-        <p>{{ruta.direccionFin.texto}}</p>
-        <strong>Destino: </strong>
         <p>{{ruta.direccionInicio.texto}}</p>
+        <strong>Destino: </strong>
+        <p>{{ruta.direccionFin.texto}}</p>
         <strong>Tiempo estimado de viaje: </strong>
         <p>{{ruta.duracion.texto}}</p>
         <strong>Precio: </strong>
-        <p>$</p>
-        <button mat-raised-button color="warn">Solicitar</button>
+        <p>${{ tarifa }}</p>
+        <strong *ngIf="esperandoConfirmacion">Estado del viaje: </strong>
+        <p *ngIf="esperandoConfirmacion">{{ resultadoSolicitud }}</p>
+        <button mat-raised-button color="warn" (click)="solicitarViaje()">Solicitar</button>
     </div>
     <div class="col-md-3 info" *ngIf="mostrarError">
         <div class="d-flex justify-content-center">
