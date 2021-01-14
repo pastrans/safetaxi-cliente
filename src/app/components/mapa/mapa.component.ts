@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { ViajeService } from 'src/app/servicios/viajes/viaje.service';
+import { SolicitudService } from 'src/app/servicios/socket/solicitud.service';
 import { Ruta } from '../../clases/ruta'
 import Swal from 'sweetalert2'
 interface Coordenada {
@@ -50,10 +51,16 @@ export class MapaComponent implements OnInit {
   //solicitud de viaje
   public esperandoConfirmacion : boolean = false;
   resultadoSolicitud : String = "Esperando respuesta";
+  estadoSolicitud : Boolean = true;
 
-  constructor(private viajeService : ViajeService) { }
+  //websocket
+  user_id = 1;
+
+  constructor(private viajeService : ViajeService,
+    private solicitudService : SolicitudService) { }
 
   ngOnInit(): void {
+    this.iniciarWebsocket();
   }
 
   public handleAddressChange(address: Address) {
@@ -202,7 +209,8 @@ export class MapaComponent implements OnInit {
             'Solicitud',
             'Se ha registrado su solicitud',
             'success'
-          )
+          );
+          this.enviarSolicitud();
           this.esperandoConfirmacion = true;
         },
         (error) => {
@@ -216,6 +224,23 @@ export class MapaComponent implements OnInit {
         'warning'
       )
     }
+  }
+
+  iniciarWebsocket(){
+    this.solicitudService.solicitudes.subscribe(resp => {
+      let response = JSON.parse(resp.data);
+      if(response.user == this.user_id){
+        this.resultadoSolicitud = response.respuesta;
+        this.estadoSolicitud = false;
+      }
+    })
+  }
+
+  enviarSolicitud(){
+    let data = {
+      tipo : "nueva_solicitud"
+    }
+    this.solicitudService.sendSolicitud(data);
   }
 
 }

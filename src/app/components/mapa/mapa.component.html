@@ -54,7 +54,7 @@
             <p>${{ tarifa }}</p>
             <strong *ngIf="esperandoConfirmacion">Estado del viaje: </strong>
             <p *ngIf="esperandoConfirmacion">{{ resultadoSolicitud }}</p>
-            <button mat-raised-button color="warn" (click)="solicitarViaje()">Solicitar</button>
+            <button mat-raised-button color="warn" (click)="solicitarViaje()" *ngIf="estadoSolicitud">Solicitar</button>
         </div>
         <div class="col-md-3 info" *ngIf="mostrarError">
             <div class="d-flex justify-content-center">
