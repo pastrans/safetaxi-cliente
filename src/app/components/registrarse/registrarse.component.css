@@ -1,0 +1,4 @@
+.form-control,
+.is-focused .form-control {
+    background-image: none;
+}

@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class=" d-flex justify-content-center align-self-stretch mt-3 ">
+        <h2 class="text-center font-weight-bold  pt-3 mt-1 mr-4" style=" color:rgb(233, 70, 57); ">Safe Taxi</h2>
+    </div>
+
+    <div class="row justify-content-sm-center ">
+        <div class=" col-sm-10 col-md-8 col-lg-5 ">
+            <div class="card border-secondary bg-light ">
+                <form [formGroup]="form" (ngSubmit)="guardar(form)">
+                    <div class="card-header ">
+                        <h4 class="text-center font-weight-bold text-dark "> Crea una cuenta</h4>
+                        <h6 class="text-center text-secondary "> Es rápido y fácil</h6>
+                    </div>
+                    <div class="card-body ">
+
+                        <div class="row mb-3 px-3 ">
+                            <div class="col ">
+                                <input type="text " class="form-control " id="inputNombre " placeholder="Nombre " formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                                <small *ngIf="nombreNoValido" class="text-danger">Ingrese al menos 3 letras</small>
+                            </div>
+                            <div class=" col ">
+                                <input type="text " class="form-control " id="inputApellido " placeholder="Apellido " formControlName="apellido" [class.is-invalid]="apellidoNoValido">
+                                <small *ngIf="apellidoNoValido" class="text-danger">Ingrese al menos 3 letras</small>
+                            </div>
+                        </div>
+                        <div class="row px-3 ">
+                            <div class="mb-3 col ">
+                                <input type="email " class="form-control " id="inputCorreo " placeholder="Correo electrónico " formControlName="email" [class.is-invalid]="correoNoValido">
+                                <small *ngIf="correoNoValido" class="text-danger">Ingrese un correo valido</small>
+                            </div>
+                        </div>
+                        <div class="row px-3 ">
+                            <div class="mb-2 col ">
+                                <input type="password" class="form-control " id="inputPassword " placeholder="Contraseña" formControlName="password" [class.is-invalid]="contraNoValido">
+                                <small *ngIf="contraNoValido" class="text-danger">Ingrese una contraseña</small>
+                            </div>
+                        </div>
+
+                        <div class="row px-3">
+                            <div class="form-group col">
+                                <label for=""> Fecha de nacimiento: </label>
+                                <input formControlName="fechaNacimiento" class=f orm-control type="date" id="start" name="trip-start" min="1990-01-01" [max]="maxDate" required>
+                                <small *ngIf="fechaNoValido" class="text-danger">La fecha ingresada no es válida</small>
+                            </div>
+
+                        </div>
+
+                        <div class="row px-3 ">
+                            <div class=" col-2 form-group text-dark mt-2 pt-1 ">
+                                Sexo
+                            </div>
+                            <div class="form-check">
+                                <input formControlName="sexo" class="form-check-inputMujer mr-2 " type="radio" name="sexo" id="checkMujer1" value="F">
+                                <label class="form-check-label mr-5" for="checkMujer1"> Mujer </label>
+                            </div>
+                            <div class="form-check">
+                                <input formControlName="sexo" class="form-check-inputHombre mr-2" type="radio" name="sexo" id="checkHombre2" value="M">
+                                <label class="form-check-label" for="checkHombre2"> Hombre </label>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col text-center ">
+                                <div class="form-group ">
+                                    <button [disabled]="form.invalid" type="submit" class="btn btn-outline-dark font-weight-bold px-5">
+                                    Registrarte
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<pre>
+<br>

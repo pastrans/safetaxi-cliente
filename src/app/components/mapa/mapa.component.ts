@@ -28,7 +28,10 @@ export class MapaComponent implements OnInit {
   //badera
   hayDatos: boolean = false;
 
+  estadoRuta: string = "ZERO_RESULTS";
   ruta:Ruta
+  mensajeError :String;
+  mostrarError :boolean  = false;
 
   constructor() { }
 
@@ -77,28 +80,57 @@ export class MapaComponent implements OnInit {
   }
   //--------- métodos para la etiqueta agm-direction---------------------------
   onChange($event){
-    let data = $event.routes[0].legs[0];
-    this.ruta = new Ruta (data);
-    this.hayDatos = true;
-    console.log(this.ruta);
+
+      let data = $event.routes[0].legs[0];
+      this.ruta = new Ruta (data);
+      this.hayDatos = true;
+      console.log(this.ruta);
+
+
   }
 
   public onResponse(event: any){
-    console.log("En respuesta");
     console.log(event);
-    // You can do anything.
-  }
-  public getStatus(status: any){
-    console.log(status);
   }
 
-  getcoords(type,event)
-    {
-        let coords=JSON.stringify(event);
-        let coords3=JSON.parse(coords);
-        console.log("updated latitude :: "+coords3.lat);
-        console.log("updated longitude :: "+coords3.lng);
+  public getStatus(status: any){
+    console.log(status);
+    this.estadoRuta = status;
+    if(this.seCalculoLaRuta()){
+    }else{
+      this.notificarProblema();
     }
+
+  }
+
+  notificarProblema(){
+    if(this.estadoRuta == "ZERO_RESULTS"){
+        // si no se encuentran rutas
+        this.mensajeError = "No se encontraron rutas";
+
+    }else if(this.estadoRuta == "UNKNOWN_ERROR"){
+      this.mensajeError = "La solicitud no se puedo procesar, Inténtalo de nuevo";
+    }
+    this.mostrarError = true;
+  }
+
+  seCalculoLaRuta(){
+    if(this.estadoRuta == "OK"){
+      this.mostrarError = false;
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+ getcoords(type,event)
+   {
+       let coords=JSON.stringify(event);
+       let coords3=JSON.parse(coords);
+       console.log("updated latitude :: "+coords3.lat);
+       console.log("updated longitude :: "+coords3.lng);
+   }
+
 
 
 

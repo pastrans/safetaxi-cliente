@@ -9,10 +9,20 @@ import { MatSliderModule } from '@angular/material/slider';
 import { AgmCoreModule } from '@agm/core';            // @agm/core
 import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 import { MaterialModule } from './material.module';
+import { RegistrarseComponent } from './components/registrarse/registrarse.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
+import { RouterModule } from '@angular/router';
+import { MenuComponent } from './components/compartido/menu/menu.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MapaComponent
+    MapaComponent,
+    RegistrarseComponent,
+    IniciarSesionComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -20,6 +30,10 @@ import { MaterialModule } from './material.module';
     BrowserAnimationsModule,
     MatSliderModule,
     MaterialModule,
+    RouterModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD8drXGd-uq-LK538tdRymcCHbYjojfylw',
       libraries: ["places", "geometry"]

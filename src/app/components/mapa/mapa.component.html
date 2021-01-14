@@ -10,6 +10,19 @@
         <p>$</p>
         <button mat-raised-button color="warn">Solicitar</button>
     </div>
+    <div class="col-md-3 info" *ngIf="mostrarError">
+        <div class="d-flex justify-content-center">
+            <div>
+                <span class="material-icons mp-2">
+              error_outline
+              </span>
+            </div>
+
+            <p>{{mensajeError}}</p>
+        </div>
+
+
+    </div>
     <div class="col mapa">
         <agm-map (mapClick)="clickMapa($event)" [latitude]="lat" [longitude]="lng" [zoom]="15">
 
