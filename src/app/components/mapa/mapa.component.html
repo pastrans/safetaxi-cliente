@@ -72,14 +72,11 @@
         <div class="col mapa">
             <agm-map (mapClick)="clickMapa($event)" [latitude]="lat" [longitude]="lng" [zoom]="15">
 
+                <agm-marker *ngIf="busqueda" name="busqueda" [latitude]="puntoBusqueda.lat" [longitude]="puntoBusqueda.lng">
+                </agm-marker>
                 <agm-marker *ngIf="existeOrigen()" name="origen" (dragEnd)="cambiandoPosicionOrigen($event)" [markerDraggable]="true" [latitude]="origen.lat" [longitude]="origen.lng">
                 </agm-marker>
-                <agm-marker *ngIf="existeDestino()" name="origen" (dragEnd)="cambiandoPosicionDestino($event)" [markerDraggable]="true" [latitude]="destino.lat" [longitude]="destino.lng">
-                    <agm-info-window>
-                        <strong>prueba</strong>
-                        <p>prueba2 </p>
-
-                    </agm-info-window>
+                <agm-marker *ngIf="existeDestino()" name="destino" (dragEnd)="cambiandoPosicionDestino($event)" [markerDraggable]="true" [latitude]="destino.lat" [longitude]="destino.lng">
                 </agm-marker>
 
                 <agm-direction (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode" [origin]="origen" [destination]="destino">

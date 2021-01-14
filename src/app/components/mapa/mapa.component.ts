@@ -28,6 +28,7 @@ export class MapaComponent implements OnInit {
   // puntos de origen y destino
   origen : Coordenada;
   destino : Coordenada;
+  puntoBusqueda : Coordenada;
 
   //badera
   hayDatos: boolean = false;
@@ -36,7 +37,7 @@ export class MapaComponent implements OnInit {
   ruta:Ruta
   mensajeError :String;
   mostrarError :boolean  = false;
-
+  busqueda     :boolean = false;
   @ViewChild("placesRef") placesRef : GooglePlaceDirective;
 
   public options={types: [], componentRestrictions: { country: 'SV' }};
@@ -56,17 +57,15 @@ export class MapaComponent implements OnInit {
   }
 
   public handleAddressChange(address: Address) {
-    // Do some stuff
-    console.log(address);
-    console.log('Latitud : ' + address.geometry.location.lat());
-    console.log('Longitud : ' + address.geometry.location.lng());
-
+    this.puntoBusqueda = { lat : address.geometry.location.lat(), lng :address.geometry.location.lng() };
+    this.busqueda = true;
     this.lat = address.geometry.location.lat();
     this.lng = address.geometry.location.lng();
   }
 
   //------------------ Métodos ----------------------------------
   clickMapa($event){
+    this.busqueda = false;
     if( !this.existeOrigen() ){
       this.origen = { lat : $event.coords.lat, lng :$event.coords.lng };
     } else {
