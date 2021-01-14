@@ -6,6 +6,7 @@ export class UsuarioModel {
     sexo: string;
     fechaNacimiento: Date;
     tipoUsuario: string;
+    password : String;
     constructor(){
 
     }

@@ -49,9 +49,20 @@ export class RegistrarseComponent implements OnInit {
     this.router.navigate(['/index']);
   }
 
-  guardar(form){
-    this.usuarioService.registrarUsuario(form.value).subscribe((response) => {
-      this.router.navigate(['/index']);
+  guardar(){
+    if( this.form.invalid){       
+      return Object.values(this.form.controls).forEach( control =>{
+        if( control instanceof  FormGroup){
+         Object.values(control.controls).forEach( control=> control.markAsTouched())
+        }else {
+         control.markAsTouched();
+        }
+     })
+   }
+    let usuario = this.valoresForm();
+    console.log(usuario);
+    this.usuarioService.registrarUsuario(usuario).subscribe((response) => {
+      this.router.navigate(['/inicio']);
       // debe ir la lógica para redireccionar
     });
   }
@@ -74,7 +85,13 @@ export class RegistrarseComponent implements OnInit {
 
   valoresForm(): UsuarioModel {
     let usuario : UsuarioModel= new UsuarioModel();
-    //usuario.nombre = 
+    usuario.nombre = this.form.get('nombre').value;
+    usuario.apellido = this.form.get('apellido').value;
+    usuario.email = this.form.get('email').value;
+    usuario.password = this.form.get('password').value;
+    usuario.sexo = this.form.get('sexo').value;
+    usuario.fechaNacimiento = this.form.get('fechaNacimiento').value;
+    usuario.tipoUsuario = 'U';
     return usuario;
   }
 

@@ -6,15 +6,11 @@ import {HttpClient} from '@angular/common/http'
 })
 export class UsuarioService {
 //url = 'http://3.238.112.205:8080/api/';
-url = 'http://safataxi.api/api/';
+url = 'http://safetaxi.api/api';
 
 constructor(private http: HttpClient) { }
 
-registrarUsuario(datos){
-  /* Se crea un objeto nuevo ya que el formulario no tiene el campo para
-  elegir el tipo de usuario.
-  */
-  const payload = {...datos, tipoUsuario: 'U'};
-  return this.http.post(`${this.url}usuarios`, payload);
-}
+  registrarUsuario(datos){
+    return this.http.post(`${this.url}/usuarios`, datos);
+  }
 }
