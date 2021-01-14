@@ -14,7 +14,7 @@ registrarUsuario(datos){
   /* Se crea un objeto nuevo ya que el formulario no tiene el campo para
   elegir el tipo de usuario.
   */
-  const payload = {...datos, tipoUsuario: 'C'};
+  const payload = {...datos, tipoUsuario: 'U'};
   return this.http.post(`${this.url}usuarios`, payload);
 }
 }

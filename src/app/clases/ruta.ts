@@ -10,7 +10,7 @@ export class Ruta{
     this.duracion         =   { valor : data.duration.value, texto: data.duration.text};
     this.direccionFin     =   { texto : data.end_address};
     this.direccionInicio  =   { texto : data.start_address};
-    console.log(data);
+    //console.log(data);
   }
 }
 
