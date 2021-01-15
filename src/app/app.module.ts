@@ -17,6 +17,7 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './components/compartido/menu/menu.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
     MapaComponent,
     RegistrarseComponent,
     IniciarSesionComponent,
-    MenuComponent
+    MenuComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

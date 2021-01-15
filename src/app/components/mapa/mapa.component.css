@@ -1,5 +1,5 @@
 agm-map {
-    height: 90vh;
+    height: 89vh;
 }
 
 .mapa {
@@ -10,4 +10,8 @@ agm-map {
 .info {
     top: 10px;
     margin: 0%;
+}
+
+#menu {
+    width: 100vw;
 }

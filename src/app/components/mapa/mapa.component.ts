@@ -3,8 +3,9 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { ViajeService } from 'src/app/servicios/viajes/viaje.service';
 import { SolicitudService } from 'src/app/servicios/socket/solicitud.service';
-import { Ruta } from '../../clases/ruta'
-import Swal from 'sweetalert2'
+import { Ruta } from '../../clases/ruta';
+import Swal from 'sweetalert2';
+import {MatAccordion} from '@angular/material/expansion';
 interface Coordenada {
   lat: number;
   lng: number;
@@ -35,11 +36,13 @@ export class MapaComponent implements OnInit {
   hayDatos: boolean = false;
 
   estadoRuta: string = "ZERO_RESULTS";
-  ruta:Ruta
+  ruta:Ruta;
+  respuesta : string; // T terminado, R rechazado, A aceptado
   mensajeError :String;
   mostrarError :boolean  = false;
   busqueda     :boolean = false;
   @ViewChild("placesRef") placesRef : GooglePlaceDirective;
+  @ViewChild(MatAccordion) accordion: MatAccordion;
 
   public options={types: [], componentRestrictions: { country: 'SV' }};
   //tarifas
@@ -214,7 +217,7 @@ export class MapaComponent implements OnInit {
           this.esperandoConfirmacion = true;
         },
         (error) => {
-          console.log(error)
+          console.log(error);
         }
       );
     }else{
@@ -230,6 +233,7 @@ export class MapaComponent implements OnInit {
     this.solicitudService.solicitudes.subscribe(resp => {
       let response = JSON.parse(resp.data);
       if(response.user == this.user_id){
+        this.respuesta = response.tipoRespuesta;
         this.resultadoSolicitud = response.respuesta;
         this.estadoSolicitud = false;
       }
