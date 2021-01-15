@@ -45,7 +45,7 @@ export class MapaComponent implements OnInit {
 
   estadoRuta: string = "ZERO_RESULTS";
   ruta:Ruta;
-  respuesta : string; // T terminado, R rechazado, A aceptado
+  respuesta : string = ""; // T terminado, R rechazado, A aceptado
   mensajeError :String;
   mostrarError :boolean  = false;
   busqueda     :boolean = false;
@@ -66,7 +66,7 @@ export class MapaComponent implements OnInit {
 
   //websocket
   user_id = 1;
-
+  idViaje : Number;
   constructor(private viajeService : ViajeService,
     private solicitudService : SolicitudService) { }
 
@@ -222,12 +222,13 @@ export class MapaComponent implements OnInit {
         user_id : 1
       }
       this.viajeService.solicitarViaje(data).subscribe(
-        (res) => {
+        (res : any) => {
           Swal.fire(
             'Solicitud',
             'Se ha registrado su solicitud',
             'success'
           );
+          this.idViaje = res.id;
           this.enviarSolicitud();
           this.esperandoConfirmacion = true;
         },

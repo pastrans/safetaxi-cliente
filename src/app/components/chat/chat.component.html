@@ -1,1 +1,26 @@
-<p>hola </p>
+<div #scrollMe class="chat-messages">
+    <div class="divMensaje" *ngFor="let mensaje of mensajes">
+        <div class="row" *ngIf="mensaje.tipo == 'propio'">
+            <div class="col-sm-8">
+                <div class="outgoing-message">
+                    <p>{{ mensaje.mensaje }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="mensaje.tipo == 'externo'">
+            <div class="col-sm-8 offset-sm-3">
+                <div class="incomming-message">
+                    <p>{{ mensaje.mensaje }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="divMessage">
+    <div class="col-sm-12">
+        <textarea class="form-control" id="mensaje" rows="2" [(ngModel)]="mensajeTexto" (keyup.enter)="enviarMensaje()"></textarea>
+    </div>
+    <div class="col-sm-12">
+        <button class="btn btn-small btn-dark col-sm-12" id="btnEnviar" (click)="enviarMensaje()"><span class="material-icons">send</span></button>
+    </div>
+</div>

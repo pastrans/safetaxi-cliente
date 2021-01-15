@@ -44,6 +44,28 @@ export class WebsocketService {
     return Rx.Subject.create(observer, observable);
   }
 
+  connectChat() : Rx.Subject<MessageEvent>{
+    this.socket = io("http://localhost:5000");
+    
+    let observable = new Observable(observer => {
+      this.socket.on('chat', (data) => {
+        //console.log("Mensaje recibido: " + data);
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      }
+    });
+
+    let observer = {
+      next : (data : Object) => {
+        this.socket.emit('chat', JSON.stringify(data));
+      }
+    }
+
+    return Rx.Subject.create(observer, observable);
+  }
+
   getRespuesta(user_id){
     let observable = new Observable(observer => {
       this.socket.on('solicitud', (data) => {
