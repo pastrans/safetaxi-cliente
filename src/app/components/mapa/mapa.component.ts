@@ -3,13 +3,10 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { ViajeService } from 'src/app/servicios/viajes/viaje.service';
 import { SolicitudService } from 'src/app/servicios/socket/solicitud.service';
-import { Ruta } from '../../clases/ruta';
+import { Ruta , Coordenada} from '../../clases/ruta';
 import Swal from 'sweetalert2';
 import {MatAccordion} from '@angular/material/expansion';
-interface Coordenada {
-  lat: number;
-  lng: number;
-}
+
 
 
 @Component({
@@ -24,6 +21,17 @@ export class MapaComponent implements OnInit {
 
   lat: number = 13.7161076 ;
   lng: number = -89.2056577 ;
+  public renderOptions = {
+    suppressMarkers: true,
+}
+  public markerOptions = {
+    origin: {
+      icon:'/',
+    },
+    destination: {
+      icon:'/',
+    },
+}
 
   public travelMode: string = 'DRIVING';
 
@@ -67,6 +75,7 @@ export class MapaComponent implements OnInit {
   }
 
   public handleAddressChange(address: Address) {
+    console.log(address);
     this.puntoBusqueda = { lat : address.geometry.location.lat(), lng :address.geometry.location.lng() };
     this.busqueda = true;
     this.lat = address.geometry.location.lat();
@@ -102,6 +111,7 @@ export class MapaComponent implements OnInit {
 
   calcularRuta():Boolean  {
     if (this.existeDestino() == true && this.existeOrigen() == true ){
+      // ocultar marcadores originales
       return true
     }
     return false;
@@ -118,6 +128,11 @@ export class MapaComponent implements OnInit {
   onChange($event){
       let data = $event.routes[0].legs[0];
       this.ruta = new Ruta (data);
+        console.log(data.end_location.lat());
+        console.log(data.start_location.lat());
+      // this.ruta.direccionInicio.coordenda.lat= data.start_location.lat();
+      // console.log(this.ruta.direccionInicio.coordenda.lat);
+
       this.hayDatos = true;
       //console.log(this.ruta);
     }

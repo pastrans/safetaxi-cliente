@@ -105,7 +105,7 @@
                 <agm-marker *ngIf="existeDestino()" name="destino" (dragEnd)="cambiandoPosicionDestino($event)" [markerDraggable]="true" [latitude]="destino.lat" [longitude]="destino.lng">
                 </agm-marker>
 
-                <agm-direction (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode" [origin]="origen" [destination]="destino">
+                <agm-direction [renderOptions]="renderOptions" [markerOptions]="markerOptions" (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode" [origin]="origen" [destination]="destino">
 
                 </agm-direction>
 

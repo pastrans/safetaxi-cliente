@@ -8,9 +8,11 @@ export class Ruta{
   constructor( data: any ){
     this.distancia        =   { valor : data.distance.value, texto: data.distance.text };
     this.duracion         =   { valor : data.duration.value, texto: data.duration.text};
-    this.direccionFin     =   { texto : data.end_address};
     this.direccionInicio  =   { texto : data.start_address};
-    //console.log(data);
+    this.direccionFin     =   { texto : data.end_address};
+
+    console.log(data);
+
   }
 }
 
@@ -26,6 +28,7 @@ interface Duracion {
 
 interface Direccion{
   texto:  string,
+  coordenda?: Coordenada,
 
 }
 
@@ -33,4 +36,9 @@ interface Pasos{
   distancia:Distancia ;
   duracion: Duracion;
   instructions:string;
+}
+
+export interface Coordenada {
+  lat: number;
+  lng: number;
 }
