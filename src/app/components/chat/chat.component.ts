@@ -37,24 +37,26 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
   
   enviarMensaje(){
+    let data = {
+      id : this.idViaje,
+      mensaje : this.mensajeTexto,
+      tipo : "externo"
+    }
+    this.chatService.enviarMensaje(data);
     let mensaje : Mensaje = {tipo : "propio", mensaje : this.mensajeTexto};
     if(mensaje.mensaje != "")
       this.mensajes.push(mensaje);
     this.mensajeTexto = "";
-    let data = {
-      id : this.idViaje,
-      mensaje : mensaje.mensaje,
-      tipo : mensaje.tipo
-    }
-    this.chatService.enviarMensaje(data);
   }
 
   chatSocket(){
     this.chatService.mensajes.subscribe(resp => {
       let response = JSON.parse(resp.messageData);
-      let newMessage : Mensaje = {mensaje : response.mensaje, tipo : "externo" };
-      if(newMessage.mensaje != "")
+      if (response.id == this.idViaje){
+        let newMessage : Mensaje = {mensaje : response.mensaje, tipo : "externo" };
+        if(newMessage.mensaje != "")
         this.mensajes.push(newMessage);
+      }
       //console.log(response);
     });
   }

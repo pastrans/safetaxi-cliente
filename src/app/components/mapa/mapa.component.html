@@ -68,7 +68,7 @@
                     <button mat-raised-button color="warn" (click)="solicitarViaje()" *ngIf="estadoSolicitud">Solicitar</button>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="respuesta == 'A'">
+                <mat-expansion-panel *ngIf="idViaje > 0 || respuesta == 'A'">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             <span class="material-icons mr-2">

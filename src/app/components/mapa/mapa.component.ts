@@ -66,7 +66,7 @@ export class MapaComponent implements OnInit {
 
   //websocket
   user_id = 1;
-  idViaje : Number;
+  idViaje : Number = 0;
   constructor(private viajeService : ViajeService,
     private solicitudService : SolicitudService) { }
 
@@ -250,6 +250,8 @@ export class MapaComponent implements OnInit {
       let response = JSON.parse(resp.data);
       if(response.user == this.user_id){
         this.respuesta = response.tipoRespuesta;
+        if(this.respuesta == 'R')
+          this.idViaje = 0;
         this.resultadoSolicitud = response.respuesta;
         this.estadoSolicitud = false;
       }
