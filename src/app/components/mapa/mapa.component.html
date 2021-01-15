@@ -98,14 +98,37 @@
         <div class="col mapa" id="divMap">
             <agm-map (mapClick)="clickMapa($event)" [latitude]="lat" [longitude]="lng" [zoom]="15">
 
-                <agm-marker *ngIf="busqueda" name="busqueda" [latitude]="puntoBusqueda.lat" [longitude]="puntoBusqueda.lng">
+                <agm-marker (ngOnChanges)="cambiandoBusqueda($event)" *ngIf="busqueda" (markerClick)="busquedaclick($event)" name="busqueda" [latitude]="puntoBusqueda.lat" [longitude]="puntoBusqueda.lng">
+                    <agm-info-window></agm-info-window>
                 </agm-marker>
                 <agm-marker *ngIf="existeOrigen()" name="origen" (dragEnd)="cambiandoPosicionOrigen($event)" [markerDraggable]="true" [latitude]="origen.lat" [longitude]="origen.lng">
+                    <agm-info-window>
+                        <div>
+                            <div class="">
+                                <strong class="font-weight-bold"> Origen</strong>
+                            </div>
+                            <div class=""><button (click)="borrarMarcadorOri()" mat-raised-button color="warn"><span class="material-icons">
+                              delete
+                              </span></button></div>
+
+                        </div>
+                    </agm-info-window>
                 </agm-marker>
                 <agm-marker *ngIf="existeDestino()" name="destino" (dragEnd)="cambiandoPosicionDestino($event)" [markerDraggable]="true" [latitude]="destino.lat" [longitude]="destino.lng">
+                    <agm-info-window>
+                        <div>
+                            <div class="">
+                                <strong class="font-weight-bold "> Destino</strong>
+                            </div>
+                            <button (click)="borrarMarcadorDes()" mat-raised-button color="warn"><span class="material-icons">
+                              delete
+                              </span></button>
+                        </div>
+                    </agm-info-window>
                 </agm-marker>
 
-                <agm-direction [renderOptions]="renderOptions" [markerOptions]="markerOptions" (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode" [origin]="origen" [destination]="destino">
+                <agm-direction (ngModelChange)="lado = $event" [renderOptions]="renderOptions" [markerOptions]="markerOptions" (originDrag)="getcoords('direction',$event)" (status)="getStatus($event)" *ngIf="calcularRuta()" (onChange)="onChange($event)" [travelMode]="travelMode"
+                    [origin]="origen" [destination]="destino">
 
                 </agm-direction>
 

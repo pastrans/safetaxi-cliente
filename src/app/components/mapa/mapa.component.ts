@@ -21,9 +21,10 @@ export class MapaComponent implements OnInit {
 
   lat: number = 13.7161076 ;
   lng: number = -89.2056577 ;
+  marcadorOrigen: any;
   public renderOptions = {
     suppressMarkers: true,
-}
+  }
   public markerOptions = {
     origin: {
       icon:'/',
@@ -31,21 +32,25 @@ export class MapaComponent implements OnInit {
     destination: {
       icon:'/',
     },
-}
+  }
 
   public travelMode: string = 'DRIVING';
 
   // puntos de origen y destino
   origen : Coordenada;
-  destino : Coordenada;
-  puntoBusqueda : Coordenada;
+  origenTitulo : string;
 
+  destino : Coordenada;
+  destinoTitulo : string;
+  puntoBusqueda : Coordenada;
+  puntoBusquedaTitulo : String;
   //badera
   hayDatos: boolean = false;
 
   estadoRuta: string = "ZERO_RESULTS";
   ruta:Ruta;
-  respuesta : string = ""; // T terminado, R rechazado, A aceptado
+  latDestino:number;
+  respuesta : string; // T terminado, R rechazado, A aceptado
   mensajeError :String;
   mostrarError :boolean  = false;
   busqueda     :boolean = false;
@@ -131,13 +136,7 @@ export class MapaComponent implements OnInit {
   onChange($event){
       let data = $event.routes[0].legs[0];
       this.ruta = new Ruta (data);
-        console.log(data.end_location.lat());
-        console.log(data.start_location.lat());
-      // this.ruta.direccionInicio.coordenda.lat= data.start_location.lat();
-      // console.log(this.ruta.direccionInicio.coordenda.lat);
-
       this.hayDatos = true;
-      //console.log(this.ruta);
     }
 
   public onResponse(event: any){
@@ -172,6 +171,26 @@ export class MapaComponent implements OnInit {
     }else {
       return false;
     }
+  }
+
+  busquedaclick($event){
+    this.busqueda = false;
+    console.log($event);
+    console.log($event.latitude);
+    if( !this.existeOrigen() ){
+      this.origen = { lat : $event.latitude, lng : $event.longitude };
+    } else {
+      if( !this.existeDestino() ){
+        this.destino = { lat : $event.latitude, lng : $event.longitude };
+        this.calcularTarifa();
+      }
+    }
+  }
+  borrarMarcadorOri(){
+    this.origen= null;
+  }
+  borrarMarcadorDes(){
+    this.destino= null;
   }
 
  getcoords(type,event)

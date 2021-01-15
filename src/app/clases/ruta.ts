@@ -11,7 +11,7 @@ export class Ruta{
     this.direccionInicio  =   { texto : data.start_address};
     this.direccionFin     =   { texto : data.end_address};
 
-    console.log(data);
+    // console.log(data);
 
   }
 }
