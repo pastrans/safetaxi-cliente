@@ -64,6 +64,9 @@ export class MapaComponent implements OnInit {
   resultadoSolicitud : String = "Esperando respuesta";
   estadoSolicitud : Boolean = true;
 
+  //chat
+  mostrarChat : Boolean = false;
+
   //websocket
   user_id = 1;
   idViaje : Number = 0;
@@ -228,6 +231,7 @@ export class MapaComponent implements OnInit {
             'Se ha registrado su solicitud',
             'success'
           );
+          this.mostrarChat = true;
           this.idViaje = res.id;
           this.enviarSolicitud();
           this.esperandoConfirmacion = true;
@@ -251,7 +255,9 @@ export class MapaComponent implements OnInit {
       if(response.user == this.user_id){
         this.respuesta = response.tipoRespuesta;
         if(this.respuesta == 'R')
-          this.idViaje = 0;
+          this.mostrarChat = false;
+        if(this.respuesta == 'T')
+          this.mostrarChat = false;
         this.resultadoSolicitud = response.respuesta;
         this.estadoSolicitud = false;
       }

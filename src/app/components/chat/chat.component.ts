@@ -14,9 +14,11 @@ interface Mensaje{
 export class ChatComponent implements OnInit, AfterViewChecked {
 
   @Input() idViaje: number;
+  @Input() user_id: number;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   mensajeTexto = "";
   mensajes : Mensaje[] = [];
+  selfMessage = false;
 
   constructor(private chatService : ChatService) { 
     
@@ -40,6 +42,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     let data = {
       id : this.idViaje,
       mensaje : this.mensajeTexto,
+      user_id: this.user_id,
       tipo : "externo"
     }
     this.chatService.enviarMensaje(data);
@@ -53,9 +56,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.chatService.mensajes.subscribe(resp => {
       let response = JSON.parse(resp.messageData);
       if (response.id == this.idViaje){
-        let newMessage : Mensaje = {mensaje : response.mensaje, tipo : "externo" };
-        if(newMessage.mensaje != "")
-        this.mensajes.push(newMessage);
+        if(this.user_id != response.user_id){
+          let newMessage : Mensaje = {mensaje : response.mensaje, tipo : response.tipo };
+          if(newMessage.mensaje != "")
+            this.mensajes.push(newMessage);
+          this.selfMessage = false;
+        }
       }
       //console.log(response);
     });

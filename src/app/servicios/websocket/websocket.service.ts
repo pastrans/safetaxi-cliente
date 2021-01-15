@@ -49,7 +49,7 @@ export class WebsocketService {
     
     let observable = new Observable(observer => {
       this.socket.on('chat', (data) => {
-        //console.log("Mensaje recibido: " + data);
+        console.log("Mensaje recibido: " + data);
         observer.next(data);
       });
       return () => {
@@ -59,6 +59,7 @@ export class WebsocketService {
 
     let observer = {
       next : (data : Object) => {
+        console.log("Mensaje enviado");
         this.socket.emit('chat', JSON.stringify(data));
       }
     }
