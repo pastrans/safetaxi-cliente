@@ -46,7 +46,8 @@ export class MapaComponent implements OnInit {
   puntoBusquedaTitulo : String;
   //badera
   hayDatos: boolean = false;
-
+  URL_A= "../../../assets/img/A-Mapa.png";
+  URL_B= "../../../assets/img/B-Mapa.png";
   estadoRuta: string = "ZERO_RESULTS";
   ruta:Ruta;
   latDestino:number;
@@ -183,6 +184,8 @@ export class MapaComponent implements OnInit {
       if( !this.existeDestino() ){
         this.destino = { lat : $event.latitude, lng : $event.longitude };
         this.calcularTarifa();
+      }else{
+        this.busqueda = true;
       }
     }
   }
