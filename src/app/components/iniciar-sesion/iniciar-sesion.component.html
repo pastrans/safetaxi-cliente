@@ -9,24 +9,23 @@
 
 
                     <h5 class="text-center">SafeTaxi</h5>
-                    <form class="form-signin">
+                    <form class="form-signin" [formGroup]="form" (ngSubmit)="login()">
                         <div class="form-group">
                             <label for="inputEmail">Correo electrónico:</label>
-                            <input type="email" id="inputEmail" class="form-control" required autofocus>
-
+                            <input formControlName="email" type="email" id="inputEmail" class="form-control" required autofocus>
                         </div>
 
                         <div class="form-group">
                             <label for="inputPassword">Contraseña:</label>
-                            <input type="password" id="inputPassword" class="form-control" required>
-
+                            <input formControlName="password" type="password" id="inputPassword" class="form-control" required>
                         </div>
 
                         <div class="custom-control custom-checkbox mb-3">
                             <input type="checkbox" class="custom-control-input" id="customCheck1">
                             <label class="custom-control-label" for="customCheck1">Recordar contraseña</label>
                         </div>
-                        <a [routerLink]="['/iniciar']" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Iniciar</a>
+                        <!--a [routerLink]="['/iniciar']" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Iniciar</a-->
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Iniciar</button>
                         <a [routerLink]="['/registrarse']" class="btn btn-lg btn-google btn-block text-uppercase">Registrarse</a>
 
 

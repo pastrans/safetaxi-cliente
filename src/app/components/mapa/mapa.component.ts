@@ -6,6 +6,7 @@ import { SolicitudService } from 'src/app/servicios/socket/solicitud.service';
 import { Ruta , Coordenada} from '../../clases/ruta';
 import Swal from 'sweetalert2';
 import {MatAccordion} from '@angular/material/expansion';
+import { Router } from '@angular/router';
 
 
 
@@ -74,9 +75,10 @@ export class MapaComponent implements OnInit {
   mostrarChat : Boolean = false;
 
   //websocket
-  user_id = 1;
+  user_id = localStorage.getItem('id');
   idViaje : Number = 0;
-  constructor(private viajeService : ViajeService,
+  constructor(private router: Router,
+    private viajeService : ViajeService,
     private solicitudService : SolicitudService) { }
 
   ngOnInit(): void {
@@ -244,7 +246,7 @@ export class MapaComponent implements OnInit {
         origenTexto : this.ruta.direccionInicio.texto,
         destinoTexto : this.ruta.direccionFin.texto,
         total : this.tarifa,
-        user_id : 1
+        user_id : this.user_id
       }
       this.viajeService.solicitarViaje(data).subscribe(
         (res : any) => {
@@ -291,6 +293,10 @@ export class MapaComponent implements OnInit {
       tipo : "nueva_solicitud"
     }
     this.solicitudService.sendSolicitud(data);
+  }
+
+  salir(){
+    this.router.navigate(['/login']);
   }
 
 }
